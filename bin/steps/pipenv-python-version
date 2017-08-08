@@ -2,22 +2,22 @@
 
 # Detect Python-version with Pipenv.
 
-if [[ -f $BUILD_DIR/Pipfile.lock ]]; then
+if [[ -f $BUILD_DIR/backend/Pipfile.lock ]]; then
 
-    if [[ ! -f $BUILD_DIR/runtime.txt ]]; then
+    if [[ ! -f $BUILD_DIR/backend/runtime.txt ]]; then
         if [[ ! -f $BUILD_DIR/Pipfile.lock ]]; then
             puts-warn "No 'pipfile.lock' found! We recommend you commit this into your repository."
         fi
-        if [[ -f $BUILD_DIR/Pipfile.lock ]]; then
+        if [[ -f $BUILD_DIR/backend/Pipfile.lock ]]; then
             set +e
-            PYTHON=$(jq -r '._meta.requires.python_version' "$BUILD_DIR/Pipfile.lock")
+            PYTHON=$(jq -r '._meta.requires.python_version' "$BUILD_DIR/backend/Pipfile.lock")
             set -e
 
             if [ "$PYTHON" = 2.7 ]; then
-                echo "python-2.7.13" > "$BUILD_DIR/runtime.txt"
+                echo "python-2.7.13" > "$BUILD_DIR/backend/runtime.txt"
             fi
             if [ "$PYTHON" = 3.6 ]; then
-                echo "python-3.6.2" > "$BUILD_DIR/runtime.txt"
+                echo "python-3.6.2" > "$BUILD_DIR/backend/runtime.txt"
             fi
         fi
     fi
